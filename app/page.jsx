@@ -59,8 +59,22 @@ export default function Home() {
       </div>
 
       {/* Colonne carte */}
-<aside style={{ position: 'sticky', top: 12 }}>
-  <Map items={items} />
+
+{/* Colonne carte */}
+<aside style={{ position:'sticky', top:16, alignSelf:'start' }}>
+  {/* Conteneur strict : dimension, arrondis, overflow masqué */}
+  <div style={{
+    position:'relative',
+    width:'100%',
+    height:'78vh',
+    minHeight:480,
+    borderRadius:12,
+    overflow:'hidden',
+    border:'1px solid #e5e7eb',
+    background:'#f6f7f9'
+  }}>
+    <Map items={items} />
+  </div>
 </aside>
 
       <Lightbox
