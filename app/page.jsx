@@ -59,9 +59,9 @@ export default function Home() {
       </div>
 
       {/* Colonne carte */}
-      <aside style={{position:'sticky', top:12, height:'calc(100vh - 24px)'}}>
-        <Map items={items} />
-      </aside>
+<aside style={{ position: 'sticky', top: 12 }}>
+  <Map items={items} />
+</aside>
 
       <Lightbox
         open={lightbox.open}
