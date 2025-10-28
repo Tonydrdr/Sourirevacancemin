@@ -1,9 +1,8 @@
 'use client';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useMemo } from 'react';
 
-// Fix des icônes Leaflet sur Vercel/CDN
 const icon = new L.Icon({
   iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
@@ -18,22 +17,13 @@ export default function Map({ items = [], center = [46.5, 2.5], zoom = 5 }) {
   }, [items]);
 
   return (
-    <MapContainer
-      center={center} zoom={zoom}
-      style={{height:'100%', width:'100%', borderRadius:12}}
-      scrollWheelZoom
-    >
-      <TileLayer
-        attribution='&copy; OpenStreetMap'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+    <MapContainer center={center} zoom={zoom} style={{height:'100%', width:'100%', borderRadius:12}} scrollWheelZoom>
+      <TileLayer attribution="&copy; OpenStreetMap" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {items.map(it => (
         <Marker key={it.id} position={[it.lat, it.lng]} icon={icon}>
           <Popup>
             <div style={{minWidth:160}}>
-              <b>{it.title}</b><br/>
-              {it.city}, {it.country}<br/>
-              {it.price} € / nuit<br/>
+              <b>{it.title}</b><br/>{it.city}, {it.country}<br/>{it.price} € / nuit<br/>
               <a href={`/bien/${it.id}`} style={{display:'inline-block', marginTop:6}}>Voir l’annonce</a>
             </div>
           </Popup>
@@ -44,9 +34,8 @@ export default function Map({ items = [], center = [46.5, 2.5], zoom = 5 }) {
   );
 }
 
-// petit composant helper pour ajuster la vue
 function FitToBounds({ bounds }) {
-  const map = L.useMap ? L.useMap() : null; // compatibilité
-  if (map && bounds) map.fitBounds(bounds, { padding:[50,50] });
+  const map = useMap();
+  if (bounds) map.fitBounds(bounds, { padding:[50,50] });
   return null;
 }
