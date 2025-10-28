@@ -1,11 +1,12 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useMemo, useState, useCallback } from 'react';
-import { listings } from '@/lib/listings';
-import Lightbox from '@/components/Lightbox';
 
-// chargement de la carte côté client uniquement
-const Map = dynamic(() => import('@/components/Map'), { ssr: false });
+import { listings } from '../lib/listings';
+import Lightbox from '../components/Lightbox';
+
+// Carte chargée côté client uniquement
+const Map = dynamic(() => import('../components/Map'), { ssr: false });
 
 export default function Home() {
   const [lightbox, setLightbox] = useState({ open:false, images:[], index:0 });
